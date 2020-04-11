@@ -3,5 +3,8 @@
 1. 命令行或者可视化工具，使用root身份登录到mysql
 
 2. 执行以下两条sql语句
-- create user 'sa'@'localhost' identified by '123';
-- grant all on \*.* 'sa'@'localhost' with grant option;
+```sql
+create user 'sa'@'localhost' identified by '123';
+
+grant all on *.* 'sa'@'localhost' with grant option;
+```
