@@ -6,5 +6,5 @@
 ```sql
 create user 'sa'@'localhost' identified by '123';
 
-grant all on *.* 'sa'@'localhost' with grant option;
+grant all on *.* to 'sa'@'localhost' with grant option;
 ```
