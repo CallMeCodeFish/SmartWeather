@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/smartweather.css"/>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>SmartWeather</title>
+</head>
+
+<body style="background-color: #efefef">
+
+<!--导航栏-->
+<nav th:replace="~{navigation :: nav-bar}"></nav>
+
+<!--页面主要内容-->
+<div class="container-fluid">
+    <div class="row">
+        <!--页面左边占位-->
+        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1"></div>
+
+        <!--内容-->
+        <div class="col-lg-8 col-md-10 col-sm-10 col-xs-10 sw-container-main">
+            <!--列表部分-->
+            <div class="row">
+                <!--占位-->
+                <div class="col-lg-1 col-md-1"></div>
+
+                <!--列表-->
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4 th:text="${ad.title}" class="sw-ad-title"></h4>
+                        <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-info-font">
+                            <a th:href="@{'/seller/profile/' + ${ad.seller.id}}" th:text="${ad.seller.name}"></a> |
+                            <span th:text="${ad.seller.type}"></span> |
+                            <span th:text="${#dates.format(ad.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                        </span>
+                        <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-info-font">
+                            <span th:text="${ad.seller.street}"></span>, <span th:text="${ad.seller.city}"></span>, <span th:text="${ad.seller.state}"></span>, <span th:text="${ad.seller.country}"></span>
+                        </span>
+                        <span class="sw-info-font col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${session.user.id} == ${ad.seller.userId}">
+                            <a th:href="@{'/seller/publish/' + ${ad.id}}">Edit</a>
+                        </span>
+                        <hr class="sw-show-page-hline">
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sw-textarea" th:text="${ad.description}"></div>
+                    </div>
+                </div>
+
+                <!--占位-->
+                <div class="col-lg-1 col-md-1"></div>
+            </div>
+        </div>
+
+        <!--页面右边占位-->
+        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1"></div>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -17,4 +17,5 @@ public class User {
     private String token;
     private Long createdAt;
     private Long updatedAt;
+    private Boolean isSeller;
 }
