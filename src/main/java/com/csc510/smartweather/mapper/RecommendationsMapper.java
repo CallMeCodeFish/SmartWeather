@@ -10,7 +10,8 @@ import java.util.List;
 
 @Mapper
 @Component
-public interface RecommendationMapper {
-    @Select("select * from recommendation where weather=#{weather}")
-    List<Recommendation> selectByWeather(String weather);
+public interface RecommendationsMapper {
+    @Select("select * from recommendations where reco_id in " +
+            "(select reco_id from weather_reco_mappings where code=#{weather_code})")
+    List<Recommendation> selectByWeatherCode(int weather_code);
 }
