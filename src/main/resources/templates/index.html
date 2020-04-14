@@ -59,7 +59,22 @@
                 天气信息
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                推荐
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Weather </th>
+                            <th> Type </th>
+                            <th> Recommendation </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="recommendation : ${recommendations}">
+                            <td><span th:text="${recommendation.weather} "> Weather </span></td>
+                            <td><span th:text="${recommendation.type} "> Type </span></td>
+                            <td><span th:text="${recommendation.text} "> Recommendation </span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 未来天气

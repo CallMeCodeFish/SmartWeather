@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Mapper
 @Component
 public interface RecommendationMapper {
-    @Select("select * from user where weather=#{weather} and type=#{type}")
-    Recommendation selectByWeatherAndType(String weather, String type);
+    @Select("select * from recommendation where weather=#{weather}")
+    List<Recommendation> selectByWeather(String weather);
 }

@@ -1,6 +1,7 @@
 package com.csc510.smartweather.controller;
 
 import com.csc510.smartweather.service.RecommendationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class IndexController {
+    @Autowired
+    private RecommendationService recommendationService;
     @GetMapping("/")
     public String index(Model model) {
         String weather = "Thunderstorm";
-        model.addAttribute("clothingReco", new RecommendationService().getRecommendation(weather, "clothing"));
-        model.addAttribute("activityReco", new RecommendationService().getRecommendation(weather, "activity"));
-        model.addAttribute("plantReco", new RecommendationService().getRecommendation(weather, "plant"));
+        model.addAttribute("recommendations", recommendationService.getRecommendation(weather));
         return "index";
     }
 }
