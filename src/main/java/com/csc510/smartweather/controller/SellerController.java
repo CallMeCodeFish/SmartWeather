@@ -1,5 +1,7 @@
 package com.csc510.smartweather.controller;
 
+import com.csc510.smartweather.enumerate.CustomizeExceptionEnum;
+import com.csc510.smartweather.exception.CustomizeException;
 import com.csc510.smartweather.mapper.AdvertisementMapper;
 import com.csc510.smartweather.model.Advertisement;
 import com.csc510.smartweather.model.Seller;
@@ -36,7 +38,8 @@ public class SellerController {
     public String getRegister(HttpServletRequest request, Model model) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            throw new RuntimeException();
+            //抛出未登录异常
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_SIGN_IN);
         }
         if (user.getIsSeller()) {
             Seller dbSeller = sellerService.selectByUserId(user.getId());
@@ -107,10 +110,10 @@ public class SellerController {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             //抛出未登录异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_SIGN_IN);
         } else if (!user.getIsSeller()) {
             //抛出权限异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_AUTHORIZED);
         }
         Seller seller = sellerService.selectByUserId(user.getId());
         model.addAttribute("seller", seller);
@@ -122,16 +125,16 @@ public class SellerController {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             //抛出未登录异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_SIGN_IN);
         } else if (!user.getIsSeller()) {
             //抛出权限异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_AUTHORIZED);
         }
         Advertisement adAd = advertisementService.selectById(id);
         Seller dbSeller = sellerService.selectById(adAd.getSellerId());
         if (!dbSeller.getUserId().equals(user.getId())) {
             //抛出权限异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_AUTHORIZED);
         }
         model.addAttribute("ad", adAd);
         model.addAttribute("seller", dbSeller);
@@ -172,10 +175,10 @@ public class SellerController {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             //抛出未登录异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_SIGN_IN);
         } else if (!user.getIsSeller()) {
             //抛出权限异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_AUTHORIZED);
         }
         Seller seller = sellerService.selectByUserId(user.getId());
         List<Advertisement> dbAds = advertisementMapper.selectBySellerId(seller.getId());
@@ -188,10 +191,10 @@ public class SellerController {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             //抛出未登录异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_SIGN_IN);
         } else if (!user.getIsSeller()) {
             //抛出权限异常
-            throw new RuntimeException();
+            throw new CustomizeException(CustomizeExceptionEnum.NOT_AUTHORIZED);
         }
         Seller dbSeller = sellerService.selectByUserId(user.getId());
         model.addAttribute("seller", dbSeller);
