@@ -21,10 +21,10 @@ insert ignore into recommendations VALUES  (101, 'Clothing', 'Wear coat and brin
                                            (105, 'Clothing', 'Stay at home! '),
                                            (205, 'Activity', 'Do indoor exercises like yoga, or use running machine'),
                                            (305, 'Plant', 'Keep plants indoors and fertilized.'),
-                                           (106, 'Clothing', 'Ware T-shirt, shorts and Sunglasses.'),
+                                           (106, 'Clothing', 'Wear T-shirt, shorts and sunglasses.'),
                                            (206, 'Activity', 'Hiking, camping, fishing, jogging, boating. Take kids to theme parks.'),
                                            (306, 'Plant', 'Plants need sunlight. Put them under the sun and dont forget to water them.'),
-                                           (107, 'Clothing', 'Ware a coat, trousers. Bring an unbrella if going out. '),
+                                           (107, 'Clothing', 'Wear a coat, trousers. Bring an umbrella if going out. '),
                                            (207, 'Activity', 'Watch a movie. Go to gym'),
                                            (307, 'Plant', 'Keep plants watered.');
 

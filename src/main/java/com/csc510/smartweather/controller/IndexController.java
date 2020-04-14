@@ -20,7 +20,7 @@ public class IndexController {
     private WeatherCodesService weatherCodesService;
     @GetMapping("/")
     public String index(Model model) {
-        int weather_code = 200;
+        int weather_code = 800;
         model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
         return "index";
