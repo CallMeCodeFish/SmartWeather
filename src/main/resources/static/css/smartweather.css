@@ -1,10 +1,73 @@
 .sw-container-main {
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 60px;
+    background-color: #ffffff;
 }
 
 .sw-nav {
     padding-left: 5%;
     padding-right: 5%;
+}
+
+.sw-container-form-title {
+    margin-top: 55px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.sw-page-placeholder {
+    background-color: #efefef;
+}
+
+.sw-ad-title {
+    margin-top: 55px;
+    margin-bottom: 10px;
+}
+
+.sw-show-page-hline {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.sw-info-font {
+    font-size: 12px;
+    color: #999;
+}
+
+.sw-textarea {
+    font-size: 13px;
+    min-height: 450px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.sw-btn-submit {
+    text-align: center;
+}
+
+.sw-div-list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 500px;
+}
+
+.sw-avatar {
+    height: 25px;
+    width: 25px;
+}
+
+.sw-info-list {
+    margin-bottom: 10px;
+}
+
+.sw-table-title-font {
+    font-size: 13px;
+}
+
+.sw-table-content-font {
+    font-size: 13px;
+    color: #999;
+}
+
+.sw-icon {
+    color: #337ab7;
 }

@@ -21,10 +21,10 @@ public interface UserMapper {
     @Select("select * from user where account_type=#{accountType} and account_id=#{accountId}")
     List<User> selectByAccount(User user);
 
-    @Insert("insert into user (name, account_type, account_id, avatar_url, token, created_at, updated_at) values (#{name}, #{accountType}, #{accountId}, #{avatarUrl}, #{token}, #{createdAt}, #{updatedAt})")
+    @Insert("insert into user (name, account_type, account_id, avatar_url, token, is_seller, created_at, updated_at) values (#{name}, #{accountType}, #{accountId}, #{avatarUrl}, #{token}, #{isSeller}, #{createdAt}, #{updatedAt})")
     void insert(User user);
 
-    @Update("update user set name=#{name}, avatar_url=#{avatarUrl}, token=#{token}, updated_at=#{updatedAt} where id=#{id}")
+    @Update("update user set name=#{name}, avatar_url=#{avatarUrl}, token=#{token}, is_seller=#{isSeller}, updated_at=#{updatedAt} where id=#{id}")
     void update(User user);
 
     @Select("select * from user where token=#{token}")
