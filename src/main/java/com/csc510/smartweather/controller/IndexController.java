@@ -6,6 +6,7 @@ import com.csc510.smartweather.utilities.RequestsHandler;
 import com.csc510.smartweather.utilities.Utils;
 
 import org.json.simple.JSONObject;
+import com.csc510.smartweather.weatherInfo.QueryWeather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,13 +31,18 @@ public class IndexController {
     private RecommendationsService recommendationsService;
     @Autowired
     private WeatherCodesService weatherCodesService;
+    @Autowired
+    private QueryWeather queryWeather;
+
     private int weather_code = 731;
     private String GOOGLE_API_KEY = "REPLACE_THIS_WITH_KEY";
+
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
+        model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo());
         return "index";
     }
 
