@@ -31,6 +31,7 @@ public class IndexController {
         model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
         model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo());
+        model.addAttribute("weather_forecast", queryWeather.WeatherForecastInfo());
         return "index";
     }
 
