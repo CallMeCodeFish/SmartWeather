@@ -2,6 +2,10 @@ package com.csc510.smartweather.controller;
 
 import com.csc510.smartweather.service.RecommendationsService;
 import com.csc510.smartweather.service.WeatherCodesService;
+import com.csc510.smartweather.utilities.RequestsHandler;
+import com.csc510.smartweather.utilities.Utils;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Heng Yu
@@ -27,6 +33,15 @@ public class IndexController {
         int weather_code = 731;
         model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
+        Map<String, String> params = new HashMap<>();
+        params.put("address", "1921+Wolf+Tech+Lane");
+        params.put("key", "AIzaSyC3yQajtK6rZvpmZPvt-i3cqW6_6nSjBtA");
+        JSONObject locationJSON = RequestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
+        float[] latlong = new float[] {0, 0};
+        if (locationJSON != null)
+            latlong = Utils.getLatLongFromJSON(locationJSON);
+        model.addAttribute("latitude", latlong[0]);
+        model.addAttribute("longitude", latlong[1]);
         return "index";
     }
 
