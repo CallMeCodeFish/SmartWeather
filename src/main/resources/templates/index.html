@@ -57,6 +57,147 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 未来天气
+                <table style="width: 100%" border="1">
+                    <thead>
+                    <tr>
+                        <th style="width: 4%"> \ </th>
+                        <th style="width: 4%"> 1h </th>
+                        <th style="width: 4%"> 2h </th>
+                        <th style="width: 4%"> 3h </th>
+                        <th style="width: 4%"> 4h </th>
+                        <th style="width: 4%"> 5h </th>
+                        <th style="width: 4%"> 6h </th>
+                        <th style="width: 4%"> 7h </th>
+                        <th style="width: 4%"> 8h </th>
+                        <th style="width: 4%"> 9h </th>
+                        <th style="width: 4%"> 10h </th>
+                        <th style="width: 4%"> 11h </th>
+                        <th style="width: 4%"> 12h </th>
+                        <th style="width: 4%"> 13h </th>
+                        <th style="width: 4%"> 14h </th>
+                        <th style="width: 4%"> 15h </th>
+                        <th style="width: 4%"> 16h </th>
+                        <th style="width: 4%"> 17h </th>
+                        <th style="width: 4%"> 18h </th>
+                        <th style="width: 4%"> 19h </th>
+                        <th style="width: 4%"> 20h </th>
+                        <th style="width: 4%"> 21h </th>
+                        <th style="width: 4%"> 22h</th>
+                        <th style="width: 4%"> 23h </th>
+                        <th style="width: 4%"> 24h </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th> Temperature </th>
+                        <td th:text="${weather_forecast.getTemp()[0]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[1]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[2]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[3]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[4]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[5]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[6]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[7]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[8]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[9]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[10]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[11]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[12]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[13]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[14]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[15]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[16]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[17]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[18]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[19]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[20]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[21]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[22]}"></td>
+                        <td th:text="${weather_forecast.getTemp()[23]}"></td>
+                    </tr>
+                    <tr>
+                        <th> Feels Like </th>
+                        <td th:text="${weather_forecast.getFeel_like()[0]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[1]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[2]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[3]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[4]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[5]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[6]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[7]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[8]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[9]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[10]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[11]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[12]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[13]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[14]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[15]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[16]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[17]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[18]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[19]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[20]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[21]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[22]}"></td>
+                        <td th:text="${weather_forecast.getFeel_like()[23]}"></td>
+                    </tr>
+                    <tr>
+                        <th> Humidity </th>
+                        <td th:text="${weather_forecast.getHumidity()[0]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[1]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[2]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[3]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[4]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[5]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[6]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[7]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[8]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[9]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[10]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[11]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[12]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[13]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[14]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[15]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[16]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[17]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[18]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[19]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[20]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[21]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[22]}"></td>
+                        <td th:text="${weather_forecast.getHumidity()[23]}"></td>
+                    </tr>
+                    <tr>
+                        <th> Pressure </th>
+                        <td th:text="${weather_forecast.getPressure()[0]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[1]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[2]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[3]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[4]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[5]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[6]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[7]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[8]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[9]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[10]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[11]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[12]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[13]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[14]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[15]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[16]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[17]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[18]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[19]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[20]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[21]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[22]}"></td>
+                        <td th:text="${weather_forecast.getPressure()[23]}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
