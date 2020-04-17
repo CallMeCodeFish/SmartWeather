@@ -42,49 +42,63 @@
                             <div class="row sw-info-list">
                                 <div class="media-body">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Name</div>
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font" th:text="${seller.name}">xxx</div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font"
+                                         th:text="${seller.name}">xxx
+                                    </div>
                                 </div>
                             </div>
                             <div class="row sw-info-list">
                                 <div class="media-body">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Category</div>
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font" th:text="${seller.type}"></div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font"
+                                         th:text="${seller.type}"></div>
                                 </div>
                             </div>
                             <div class="row sw-info-list">
                                 <div class="media-body">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Street</div>
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font" th:text="${seller.street}"></div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font"
+                                         th:text="${seller.street}"></div>
                                 </div>
                             </div>
                             <div class="row sw-info-list">
                                 <div class="media-body">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">City</div>
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font" th:text="${seller.city}"></div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font"
+                                         th:text="${seller.city}"></div>
                                 </div>
                             </div>
                             <div class="row sw-info-list">
                                 <div class="media-body">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">State</div>
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font" th:text="${seller.state}"></div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font"
+                                         th:text="${seller.state}"></div>
                                 </div>
                             </div>
                             <div class="row sw-info-list">
                                 <div class="media-body">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Country or region</div>
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font" th:text="${seller.country}"></div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Country or
+                                        region
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font"
+                                         th:text="${seller.country}"></div>
                                 </div>
                             </div>
                             <div class="row sw-info-list">
                                 <div class="media-body">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Registration date</div>
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font" th:text="${#dates.format(seller.createdAt, 'yyyy-MM-dd')}"></div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Registration
+                                        date
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font"
+                                         th:text="${#dates.format(seller.createdAt, 'yyyy-MM-dd')}"></div>
                                 </div>
                             </div>
                             <div class="row sw-info-list">
                                 <div class="media-body">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Description</div>
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font" th:text="${seller.description}"></div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 sw-table-title-font">Description
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-table-content-font"
+                                         th:text="${seller.description}"></div>
                                 </div>
                             </div>
                             <div class="sw-table-title-font" th:if="${category} == 'seller'">

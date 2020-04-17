@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ public class IndexController {
     private RecommendationsService recommendationsService;
     @Autowired
     private WeatherCodesService weatherCodesService;
+
     @GetMapping("/")
     public String index(Model model) {
         int weather_code = 731;
@@ -29,6 +32,12 @@ public class IndexController {
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
         return "index";
     }
+
+    @RequestMapping("/search")
+    public String search() {
+        return "searchrst";
+    }
+
 
     @GetMapping("/sign-out")
     public String signOut(HttpServletRequest request, HttpServletResponse response) {
