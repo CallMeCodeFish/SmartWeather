@@ -8,7 +8,7 @@ import com.csc510.smartweather.enumerate.CustomizeExceptionEnum;
  */
 
 
-public class CustomizeException extends RuntimeException{
+public class CustomizeException extends RuntimeException {
     private String message;
     private Integer code;
 

@@ -11,8 +11,7 @@ public enum CustomizeExceptionEnum {
     NOT_AUTHORIZED(4002, "Sorry, you are not allowed to access the following contents."),
     SYSTEM_ERROR(5001, "Sorry, the server cannot respond to your request!"),
     SERVER_ERROR(5002, "Sorry, there is something wrong with the server! Please try again later."),
-    BAD_REQUEST(4003, "Sorry, there is something wrong with your request! Please have a check.")
-    ;
+    BAD_REQUEST(4003, "Sorry, there is something wrong with your request! Please have a check.");
 
     private Integer code;
     private String message;
