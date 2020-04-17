@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
@@ -30,14 +31,21 @@ public class IndexController {
     private RecommendationsService recommendationsService;
     @Autowired
     private WeatherCodesService weatherCodesService;
+    private int weather_code = 731;
 
     @GetMapping("/")
     public String index(Model model) {
-        int weather_code = 731;
+        model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
+        model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
+        return "index";
+    }
+
+    @RequestMapping("/search")
+    public String search(Model model, @RequestParam(value = "searchStr") String searchStr) {
         model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
         Map<String, String> params = new HashMap<>();
-        params.put("address", "1921+Wolf+Tech+Lane");
+        params.put("address", searchStr);
         params.put("key", "AIzaSyC3yQajtK6rZvpmZPvt-i3cqW6_6nSjBtA");
         JSONObject locationJSON = RequestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
         float[] latlong = new float[] {0, 0};
@@ -46,11 +54,6 @@ public class IndexController {
         model.addAttribute("latitude", latlong[0]);
         model.addAttribute("longitude", latlong[1]);
         return "index";
-    }
-
-    @RequestMapping("/search")
-    public String search() {
-        return "searchrst";
     }
 
 

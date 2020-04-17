@@ -56,12 +56,12 @@
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 感兴趣的地方
-                <form>
-                    <a class="btn btn-info" href="/search" role="button">Search</a>
-                    <!--input type="text" name="Searchforplace" placeholder="Search for place:"-->
+                <form th:action="@{/search}">
+                    <input type="text" th:name="searchStr" placeholder="Search for place:">
+                    <input type="submit"/>
                 </form>
-                <tr><td th:text="${latitude}"></td></tr>
-                <tr><td th:text="${longitude}"></td></tr>
+                <p th:text="${latitude}"></p>
+                <p th:text="${longitude}"></p>
             </div>
         </div>
     </div>
