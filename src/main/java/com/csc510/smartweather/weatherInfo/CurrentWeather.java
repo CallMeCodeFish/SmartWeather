@@ -8,7 +8,7 @@ public class CurrentWeather {
     private int pressure;
     private int humidity;
     private int id;
-
+    private String mainInfo;
 
     public float getTemp() {
         return temp;
@@ -66,6 +66,14 @@ public class CurrentWeather {
         this.id = id;
     }
 
+    public String getMainInfo() {
+        return mainInfo;
+    }
+
+    public void setMainInfo(String mainInfo) {
+        this.mainInfo = mainInfo;
+    }
+
     @Override
     public String toString() {
         return "CurrentWeather{" +
@@ -75,6 +83,8 @@ public class CurrentWeather {
                 ", temp_max=" + temp_max +
                 ", pressure=" + pressure +
                 ", humidity=" + humidity +
+                ", id=" + id +
+                ", mainInfo='" + mainInfo + '\'' +
                 '}';
     }
 }
