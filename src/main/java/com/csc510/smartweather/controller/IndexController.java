@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +31,7 @@ public class IndexController {
     @Autowired
     private WeatherCodesService weatherCodesService;
     private int weather_code = 731;
+    private String GOOGLE_API_KEY;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -46,7 +46,7 @@ public class IndexController {
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
         Map<String, String> params = new HashMap<>();
         params.put("address", searchStr);
-        params.put("key", "AIzaSyC3yQajtK6rZvpmZPvt-i3cqW6_6nSjBtA");
+        params.put("key", GOOGLE_API_KEY);
         JSONObject locationJSON = RequestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
         float[] latlong = new float[] {0, 0};
         if (locationJSON != null)
