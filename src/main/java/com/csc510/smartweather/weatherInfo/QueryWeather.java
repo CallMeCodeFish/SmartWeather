@@ -34,8 +34,9 @@ public class QueryWeather {
         cw.setTemp_max(Float.parseFloat(str1.getString("temp_max")));
         cw.setId(str2.getJSONObject(0).getInt("id"));
         cw.setMainInfo(str2.getJSONObject(0).getString("main"));
-        System.out.println(cw);
-        System.out.println(str);
+        cw.setIcon(str2.getJSONObject(0).getString("icon"));
+        System.out.println(cw.getIcon());
+        //System.out.println(str);
 
         return cw;
     }
