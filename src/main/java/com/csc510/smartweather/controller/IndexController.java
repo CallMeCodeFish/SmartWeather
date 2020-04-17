@@ -31,7 +31,7 @@ public class IndexController {
     @Autowired
     private WeatherCodesService weatherCodesService;
     private int weather_code = 731;
-    private String GOOGLE_API_KEY;
+    private String GOOGLE_API_KEY = "REPLACE_THIS_WITH_KEY";
 
     @GetMapping("/")
     public String index(Model model) {
