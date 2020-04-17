@@ -8,3 +8,8 @@ create user 'sa'@'localhost' identified by '123';
 
 grant all on *.* to 'sa'@'localhost' with grant option;
 ```
+
+3. 將 com.csc510.smartweather.controller.IndexController 中的以下 API 字串替換成 API Key
+```java
+    private String GOOGLE_API_KEY = "REPLACE_THIS_WITH_KEY";
+```
