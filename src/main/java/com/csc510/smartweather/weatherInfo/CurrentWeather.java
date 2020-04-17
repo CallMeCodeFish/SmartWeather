@@ -9,6 +9,7 @@ public class CurrentWeather {
     private int humidity;
     private int id;
     private String mainInfo;
+    private String icon;
 
     public float getTemp() {
         return temp;
@@ -86,5 +87,12 @@ public class CurrentWeather {
                 ", id=" + id +
                 ", mainInfo='" + mainInfo + '\'' +
                 '}';
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+    public String getIcon() {
+        return icon;
     }
 }
