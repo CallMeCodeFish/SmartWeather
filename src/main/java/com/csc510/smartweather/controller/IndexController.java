@@ -26,8 +26,10 @@ public class IndexController {
     @Autowired
     private QueryWeather queryWeather;
     @GetMapping("/")
-    public String index(Model model) {
-        int weather_code = 731;
+    public String index(HttpServletRequest request,Model model) {
+
+        request.getSession().setAttribute("weatherID",queryWeather.CurrentWeatherInfo().getId());
+        int weather_code = (Integer)request.getSession().getAttribute("weatherID");
         model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
         model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo());
