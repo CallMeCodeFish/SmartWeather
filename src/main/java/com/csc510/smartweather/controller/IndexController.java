@@ -34,8 +34,10 @@ public class IndexController {
         //判断是否从前端收到经纬度，如果收到，标记session为已定位(located)
         if (latitude != null && longitude != null) {
             request.getSession().setAttribute("located", true);
-            System.out.println("纬度: " + latitude);
-            System.out.println("经度: " + longitude);
+            request.getSession().setAttribute("latitude",latitude);
+            request.getSession().setAttribute("longitude",longitude);
+//            System.out.println("纬度: " + latitude);
+//            System.out.println("经度: " + longitude);
         }
 
         //检查当前session是否已定位，向前端传入flag，以确定是否调用javascript定位代码
