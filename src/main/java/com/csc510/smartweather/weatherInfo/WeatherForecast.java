@@ -5,6 +5,9 @@ public class WeatherForecast {
     private float [] feel_like = new float[24];
     private int [] pressure = new int[24];
     private int [] humidity = new int[24];
+    private float [] dew_point = new float[24];
+    private int [] clouds = new int[24];
+    private float [] wind_speed = new float[24];
 
     public float [] getTemp() {
         return temp;
@@ -54,6 +57,43 @@ public class WeatherForecast {
         this.humidity[i] = ihumidity;
     }
 
+    public float [] getDew_point() {
+        return dew_point;
+    }
+
+    public void setDew_point(float [] dew_point) {
+        this.dew_point = dew_point;
+    }
+
+    public void setiDew_point(float idew_point, int i) {
+        this.dew_point[i] = idew_point;
+    }
+
+    public int [] getClouds() {
+        return clouds;
+    }
+
+    public void setClouds(int [] clouds) {
+        this.clouds = clouds;
+    }
+
+    public void setiClouds(int iclouds, int i) {
+        this.clouds[i] = iclouds;
+    }
+
+    public float [] getWind_speed() {
+        return wind_speed;
+    }
+
+    public void setWind_speed(float [] wind_speed) {
+        this.wind_speed = wind_speed;
+    }
+
+    public void setiWind_speed(float iwind_speed, int i) {
+        this.wind_speed[i] = iwind_speed;
+    }
+
+
     @Override
     public String toString() {
         String weatherforecastinfo = "WeatherForecast  ";
@@ -63,6 +103,9 @@ public class WeatherForecast {
                     ", feel_like=" + feel_like[i] +
                     ", pressure=" + pressure[i] +
                     ", humidity=" + humidity[i] +
+                    ", dew_point=" + dew_point[i] +
+                    ", clouds=" + clouds[i] +
+                    ", wind_speed=" + wind_speed[i] +
                     '}';
         }
         return weatherforecastinfo;

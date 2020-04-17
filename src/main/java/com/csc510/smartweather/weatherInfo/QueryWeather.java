@@ -19,9 +19,8 @@ public class QueryWeather {
 
     public WeatherForecast wf = new WeatherForecast();
 
-
     public CurrentWeather CurrentWeatherInfo(){
-        String apiURL = "http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
+        String apiURL = "http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&units=imperial&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiURL,String.class);
         //get all
         String jsonsting = responseEntity.getBody();
@@ -34,13 +33,13 @@ public class QueryWeather {
         cw.setTemp(str1.getInt("temp"));
         cw.setTemp_min(str1.getInt("temp_min"));
         cw.setTemp_max(str1.getInt("temp_max"));
-        System.out.println(cw);
 
+        System.out.println(cw);
         return cw;
     }
 
     public WeatherForecast WeatherForecastInfo(){
-        String apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat=60.99&lon=30.9&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
+        String apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat=60.99&lon=30.9&units=imperial&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiURL,String.class);
         //get all
         String jsonsting = responseEntity.getBody();
@@ -48,21 +47,16 @@ public class QueryWeather {
         JSONArray str1 = JSONArray.fromObject(str.get("hourly"));
 
         for (int i = 0; i < 24; i++) {
-            wf.setiFeel_like(Float.parseFloat(str1.getJSONObject(i).getString("feels_like")), i);
-            wf.setiHumidity(str1.getJSONObject(i).getInt("humidity"), i);
-            wf.setiPressure(str1.getJSONObject(i).getInt("pressure"), i);
-            wf.setiTemp(Float.parseFloat(str1.getJSONObject(i).getString("temp")), i);
+            wf.setiTemp(Float.parseFloat(str1.getJSONObject(i+1).getString("temp")), i);
+            wf.setiFeel_like(Float.parseFloat(str1.getJSONObject(i+1).getString("feels_like")), i);
+            wf.setiHumidity(str1.getJSONObject(i+1).getInt("humidity"), i);
+            wf.setiPressure(str1.getJSONObject(i+1).getInt("pressure"), i);
+            wf.setiDew_point(Float.parseFloat(str1.getJSONObject(i+1).getString("dew_point")), i);
+            wf.setiClouds(str1.getJSONObject(i+1).getInt("clouds"), i);
+            wf.setiWind_speed(Float.parseFloat(str1.getJSONObject(i+1).getString("wind_speed")), i);
         }
 
         System.out.println(wf);
         return wf;
-
-//        JSONObject str1 = JSONObject.fromObject(str.get("current"));
-//        cw.setFeel_like(str1.getInt("feels_like"));
-//        cw.setHumidity(str1.getInt("humidity"));
-//        cw.setPressure(str1.getInt("pressure"));
-//        cw.setTemp(str1.getInt("temp"));
-//        return cw;
-
     }
 }

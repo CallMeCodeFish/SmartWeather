@@ -21,6 +21,54 @@
         <!--左边主要内容-->
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                地理位置
+                <p>
+                    <button id = "find-me">Show my location</button><br/>
+                    <p id = "status"></p>
+                    <a id = "map-link" target="_blank"></a>
+                    <script>
+                        function geoFindMe() {
+
+                            const status = document.querySelector('#status');
+                            // const mapLink = document.querySelector('#map-link');
+                            //
+                            // mapLink.href = '';
+                            // mapLink.textContent = '';
+
+                            function success(position) {
+                                const latitude  = position.coords.latitude;
+                                const longitude = position.coords.longitude;
+
+                                status.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+                                // mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+                                // mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+                            }
+
+                            function error() {
+                                status.textContent = 'Unable to retrieve your location';
+                            }
+
+                            if (!navigator.geolocation) {
+                                status.textContent = 'Geolocation is not supported by your browser';
+                            } else {
+                                status.textContent = 'Locating…';
+                                navigator.geolocation.getCurrentPosition(success, error);
+                                $.ajax({
+                                    url: url,
+                                    data: data,
+                                    success: success,
+                                    dataType: dataType
+                                });
+                            }
+                        }
+                        document.querySelector('#find-me').addEventListener('click', geoFindMe);
+                    </script>
+                </p>
+
+            </div>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 天气信息
                 <p>
                     Temperature:<span th:text="${currentweather.temp}"></span>
@@ -57,6 +105,7 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 未来天气
+
                 <table style="width: 100%" border="1">
                     <thead>
                     <tr>
@@ -89,7 +138,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <th> Temperature </th>
+                        <th> Temperature(°F) </th>
                         <td th:text="${weather_forecast.getTemp()[0]}"></td>
                         <td th:text="${weather_forecast.getTemp()[1]}"></td>
                         <td th:text="${weather_forecast.getTemp()[2]}"></td>
@@ -116,7 +165,7 @@
                         <td th:text="${weather_forecast.getTemp()[23]}"></td>
                     </tr>
                     <tr>
-                        <th> Feels Like </th>
+                        <th> Feels Like(°F) </th>
                         <td th:text="${weather_forecast.getFeel_like()[0]}"></td>
                         <td th:text="${weather_forecast.getFeel_like()[1]}"></td>
                         <td th:text="${weather_forecast.getFeel_like()[2]}"></td>
@@ -143,7 +192,7 @@
                         <td th:text="${weather_forecast.getFeel_like()[23]}"></td>
                     </tr>
                     <tr>
-                        <th> Humidity </th>
+                        <th> Humidity(%) </th>
                         <td th:text="${weather_forecast.getHumidity()[0]}"></td>
                         <td th:text="${weather_forecast.getHumidity()[1]}"></td>
                         <td th:text="${weather_forecast.getHumidity()[2]}"></td>
@@ -170,7 +219,7 @@
                         <td th:text="${weather_forecast.getHumidity()[23]}"></td>
                     </tr>
                     <tr>
-                        <th> Pressure </th>
+                        <th> Pressure(hPa) </th>
                         <td th:text="${weather_forecast.getPressure()[0]}"></td>
                         <td th:text="${weather_forecast.getPressure()[1]}"></td>
                         <td th:text="${weather_forecast.getPressure()[2]}"></td>
@@ -195,6 +244,87 @@
                         <td th:text="${weather_forecast.getPressure()[21]}"></td>
                         <td th:text="${weather_forecast.getPressure()[22]}"></td>
                         <td th:text="${weather_forecast.getPressure()[23]}"></td>
+                    </tr>
+                    <tr>
+                        <th> Dew Point(°F) </th>
+                        <td th:text="${weather_forecast.getDew_point()[0]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[1]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[2]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[3]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[4]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[5]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[6]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[7]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[8]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[9]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[10]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[11]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[12]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[13]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[14]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[15]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[16]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[17]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[18]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[19]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[20]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[21]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[22]}"></td>
+                        <td th:text="${weather_forecast.getDew_point()[23]}"></td>
+                    </tr>
+                    <tr>
+                        <th> Cloudiness(%) </th>
+                        <td th:text="${weather_forecast.getClouds()[0]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[1]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[2]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[3]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[4]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[5]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[6]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[7]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[8]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[9]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[10]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[11]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[12]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[13]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[14]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[15]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[16]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[17]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[18]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[19]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[20]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[21]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[22]}"></td>
+                        <td th:text="${weather_forecast.getClouds()[23]}"></td>
+                    </tr>
+                    <tr>
+                        <th> Wind Speed(meter/sec) </th>
+                        <td th:text="${weather_forecast.getWind_speed()[0]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[1]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[2]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[3]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[4]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[5]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[6]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[7]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[8]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[9]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[10]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[11]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[12]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[13]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[14]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[15]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[16]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[17]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[18]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[19]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[20]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[21]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[22]}"></td>
+                        <td th:text="${weather_forecast.getWind_speed()[23]}"></td>
                     </tr>
                     </tbody>
                 </table>
