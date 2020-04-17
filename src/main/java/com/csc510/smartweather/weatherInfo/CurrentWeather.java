@@ -1,42 +1,44 @@
 package com.csc510.smartweather.weatherInfo;
 
 public class CurrentWeather {
-    private int temp;
-    private int feel_like;
-    private int temp_min;
-    private int temp_max;
+    private float temp;
+    private float feel_like;
+    private float temp_min;
+    private float temp_max;
     private int pressure;
     private int humidity;
+    private int id;
+    private String mainInfo;
 
-    public int getTemp() {
+    public float getTemp() {
         return temp;
     }
 
-    public void setTemp(int temp) {
+    public void setTemp(float temp) {
         this.temp = temp;
     }
 
-    public int getFeel_like() {
+    public float getFeel_like() {
         return feel_like;
     }
 
-    public void setFeel_like(int feel_like) {
+    public void setFeel_like(float feel_like) {
         this.feel_like = feel_like;
     }
 
-    public int getTemp_min() {
+    public float getTemp_min() {
         return temp_min;
     }
 
-    public void setTemp_min(int temp_min) {
+    public void setTemp_min(float temp_min) {
         this.temp_min = temp_min;
     }
 
-    public int getTemp_max() {
+    public float getTemp_max() {
         return temp_max;
     }
 
-    public void setTemp_max(int temp_max) {
+    public void setTemp_max(float temp_max) {
         this.temp_max = temp_max;
     }
 
@@ -56,6 +58,22 @@ public class CurrentWeather {
         this.humidity = humidity;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMainInfo() {
+        return mainInfo;
+    }
+
+    public void setMainInfo(String mainInfo) {
+        this.mainInfo = mainInfo;
+    }
+
     @Override
     public String toString() {
         return "CurrentWeather{" +
@@ -65,6 +83,8 @@ public class CurrentWeather {
                 ", temp_max=" + temp_max +
                 ", pressure=" + pressure +
                 ", humidity=" + humidity +
+                ", id=" + id +
+                ", mainInfo='" + mainInfo + '\'' +
                 '}';
     }
 }

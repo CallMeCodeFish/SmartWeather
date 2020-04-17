@@ -26,15 +26,19 @@ public class QueryWeather {
         String jsonsting = responseEntity.getBody();
         JSONObject str = JSONObject.fromObject(jsonsting);
         JSONObject str1 = JSONObject.fromObject(str.get("main"));
+        JSONArray str2 = JSONArray.fromObject(str.get("weather"));
 
-        cw.setFeel_like(str1.getInt("feels_like"));
+        cw.setFeel_like(Float.parseFloat(str1.getString("feels_like")));
         cw.setHumidity(str1.getInt("humidity"));
         cw.setPressure(str1.getInt("pressure"));
-        cw.setTemp(str1.getInt("temp"));
-        cw.setTemp_min(str1.getInt("temp_min"));
-        cw.setTemp_max(str1.getInt("temp_max"));
-
+        cw.setTemp(Float.parseFloat(str1.getString("temp")));
+        cw.setTemp_min(Float.parseFloat(str1.getString("temp_min")));
+        cw.setTemp_max(Float.parseFloat(str1.getString("temp_max")));
+        cw.setId(str2.getJSONObject(0).getInt("id"));
+        cw.setMainInfo(str2.getJSONObject(0).getString("main"));
         System.out.println(cw);
+        System.out.println(str);
+
         return cw;
     }
 
@@ -57,6 +61,7 @@ public class QueryWeather {
         }
 
         System.out.println(wf);
+        System.out.println(str);
         return wf;
     }
 }
