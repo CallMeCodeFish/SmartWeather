@@ -47,8 +47,10 @@
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 control-label">Shop name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Shop name" autocomplete="off" th:if="${seller} == null">
-                                    <input type="text" name="name" class="form-control" id="name" autocomplete="off" th:value="${seller.name}" th:if="${seller} != null">
+                                    <input type="text" name="name" class="form-control" id="name"
+                                           placeholder="Shop name" autocomplete="off" th:if="${seller} == null">
+                                    <input type="text" name="name" class="form-control" id="name" autocomplete="off"
+                                           th:value="${seller.name}" th:if="${seller} != null">
                                 </div>
                             </div>
 
@@ -56,8 +58,11 @@
                             <div class="form-group">
                                 <label for="type" class="col-sm-2 control-label">Category</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="type" class="form-control" id="type" placeholder="Business type" autocomplete="off" th:if="${seller} == null">
-                                    <input type="text" name="type" class="form-control" id="type" placeholder="Business type" autocomplete="off" th:value="${seller.type}" th:if="${seller} != null">
+                                    <input type="text" name="type" class="form-control" id="type"
+                                           placeholder="Business type" autocomplete="off" th:if="${seller} == null">
+                                    <input type="text" name="type" class="form-control" id="type"
+                                           placeholder="Business type" autocomplete="off" th:value="${seller.type}"
+                                           th:if="${seller} != null">
                                 </div>
                             </div>
 
@@ -65,8 +70,11 @@
                             <div class="form-group">
                                 <label for="street" class="col-sm-2 control-label">Street</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="street" class="form-control" id="street" placeholder="Street" autocomplete="off" th:if="${seller} == null">
-                                    <input type="text" name="street" class="form-control" id="street" placeholder="Street" autocomplete="off" th:value="${seller.street}" th:if="${seller} != null">
+                                    <input type="text" name="street" class="form-control" id="street"
+                                           placeholder="Street" autocomplete="off" th:if="${seller} == null">
+                                    <input type="text" name="street" class="form-control" id="street"
+                                           placeholder="Street" autocomplete="off" th:value="${seller.street}"
+                                           th:if="${seller} != null">
                                 </div>
                             </div>
 
@@ -74,8 +82,10 @@
                             <div class="form-group">
                                 <label for="city" class="col-sm-2 control-label">City</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="city" class="form-control" id="city" placeholder="City" autocomplete="off" th:if="${seller} == null">
-                                    <input type="text" name="city" class="form-control" id="city" placeholder="City" autocomplete="off" th:value="${seller.city}" th:if="${seller} != null">
+                                    <input type="text" name="city" class="form-control" id="city" placeholder="City"
+                                           autocomplete="off" th:if="${seller} == null">
+                                    <input type="text" name="city" class="form-control" id="city" placeholder="City"
+                                           autocomplete="off" th:value="${seller.city}" th:if="${seller} != null">
                                 </div>
                             </div>
 
@@ -83,8 +93,11 @@
                             <div class="form-group">
                                 <label for="state" class="col-sm-2 control-label">State/Province</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="state" class="form-control" id="state" placeholder="State or province" autocomplete="off" th:if="${seller} == null">
-                                    <input type="text" name="state" class="form-control" id="state" placeholder="State or province" autocomplete="off" th:value="${seller.state}" th:if="${seller} != null">
+                                    <input type="text" name="state" class="form-control" id="state"
+                                           placeholder="State or province" autocomplete="off" th:if="${seller} == null">
+                                    <input type="text" name="state" class="form-control" id="state"
+                                           placeholder="State or province" autocomplete="off" th:value="${seller.state}"
+                                           th:if="${seller} != null">
                                 </div>
                             </div>
 
@@ -92,8 +105,11 @@
                             <div class="form-group">
                                 <label for="country" class="col-sm-2 control-label">Country or region</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="country" class="form-control" id="country" placeholder="Country or region" autocomplete="off" th:if="${seller} == null">
-                                    <input type="text" name="country" class="form-control" id="country" placeholder="Country or region" autocomplete="off" th:value="${seller.country}" th:if="${seller} != null">
+                                    <input type="text" name="country" class="form-control" id="country"
+                                           placeholder="Country or region" autocomplete="off" th:if="${seller} == null">
+                                    <input type="text" name="country" class="form-control" id="country"
+                                           placeholder="Country or region" autocomplete="off"
+                                           th:value="${seller.country}" th:if="${seller} != null">
                                 </div>
                             </div>
 
@@ -101,8 +117,11 @@
                             <div class="form-group">
                                 <label for="description" class="col-sm-2 control-label">Description</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" name="description" rows="6" id="description" placeholder="Introduce your shop..." th:if="${seller} == null"></textarea>
-                                    <textarea class="form-control" name="description" rows="6" id="description" placeholder="Introduce your shop..." th:text="${seller.description}" th:if="${seller} != null"></textarea>
+                                    <textarea class="form-control" name="description" rows="6" id="description"
+                                              placeholder="Introduce your shop..." th:if="${seller} == null"></textarea>
+                                    <textarea class="form-control" name="description" rows="6" id="description"
+                                              placeholder="Introduce your shop..." th:text="${seller.description}"
+                                              th:if="${seller} != null"></textarea>
                                 </div>
                             </div>
 
@@ -126,7 +145,6 @@
         <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1"></div>
     </div>
 </div>
-
 
 
 </body>

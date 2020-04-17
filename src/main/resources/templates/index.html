@@ -28,20 +28,20 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <table style="width: 100%" border="1">
                     <thead>
-                        <tr>
-                            <th style="width: 20%"> Weather </th>
-                            <th style="width: 15%"> Type </th>
-                            <th style="width: 65%"> Recommendation </th>
-                        </tr>
+                    <tr>
+                        <th style="width: 20%"> Weather</th>
+                        <th style="width: 15%"> Type</th>
+                        <th style="width: 65%"> Recommendation</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td th:text="${weather_codes.text}" th:rowspan="${recommendations.size()+1}"></td>
-                        </tr>
-                        <tr th:each="recommendation : ${recommendations}">
-                            <td th:text="${recommendation.type} "></td>
-                            <td th:text="${recommendation.text} "></td>
-                        </tr>
+                    <tr>
+                        <td th:text="${weather_codes.text}" th:rowspan="${recommendations.size()+1}"></td>
+                    </tr>
+                    <tr th:each="recommendation : ${recommendations}">
+                        <td th:text="${recommendation.type} "></td>
+                        <td th:text="${recommendation.text} "></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -56,6 +56,10 @@
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 感兴趣的地方
+                <form>
+                    <a class="btn btn-info" href="/search" role="button">Search</a>
+                    <!--input type="text" name="Searchforplace" placeholder="Search for place:"-->
+                </form>
                 <tr><td th:text="${latitude}"></td></tr>
                 <tr><td th:text="${longitude}"></td></tr>
             </div>

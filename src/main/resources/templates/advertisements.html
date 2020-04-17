@@ -43,7 +43,8 @@
                                 <h5 class="media-heading">
                                     <a th:href="@{'/advertisement/' + ${ad.id}}" th:text="${ad.title}"></a>
                                 </h5>
-                                <span class="sw-info-font" th:text="${#dates.format(ad.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                                <span class="sw-info-font"
+                                      th:text="${#dates.format(ad.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
                             </div>
                         </div>
                     </div>
