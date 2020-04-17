@@ -1,5 +1,4 @@
 package com.csc510.smartweather.controller;
-
 import com.csc510.smartweather.service.RecommendationsService;
 import com.csc510.smartweather.service.WeatherCodesService;
 import com.csc510.smartweather.utilities.RequestsHandler;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletException;
+import java.io.IOException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
