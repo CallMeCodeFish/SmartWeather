@@ -4,7 +4,8 @@ import com.csc510.smartweather.service.WeatherCodesService;
 import com.csc510.smartweather.utilities.RequestsHandler;
 import com.csc510.smartweather.utilities.Utils;
 
-import org.json.simple.JSONObject;
+import com.sun.jndi.toolkit.url.Uri;
+import net.sf.json.JSONObject;
 import com.csc510.smartweather.weatherInfo.QueryWeather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,10 +33,11 @@ public class IndexController {
     private WeatherCodesService weatherCodesService;
     @Autowired
     private QueryWeather queryWeather;
+    @Autowired
+    private RequestsHandler requestsHandler;
 
-    private int weather_code = 731;
-    private String GOOGLE_API_KEY = "REPLACE_THIS_WITH_KEY";
-
+    private int weather_code;
+    private final String GOOGLE_API_KEY = "REPLACE_THIS_WITH_KEY";
 
     @GetMapping("/")
     public String index(Model model,
@@ -66,9 +68,14 @@ public class IndexController {
             model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo(lat,lon));
             model.addAttribute("weather_forecast", queryWeather.WeatherForecastInfo(lat,lon));
             request.getSession().setAttribute("weatherID",queryWeather.CurrentWeatherInfo(lat,lon).getId());
-            int weather_code = (Integer)request.getSession().getAttribute("weatherID");
+            weather_code = (Integer)request.getSession().getAttribute("weatherID");
             model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
             model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
+            Map<String, String> params = new HashMap<>();
+            params.put("latlng", lat+','+lon);
+            params.put("key", GOOGLE_API_KEY);
+            JSONObject locationJSON = requestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
+            model.addAttribute("city", Utils.getCityFromJSON(locationJSON));
         }
 
         return "index";
@@ -81,12 +88,23 @@ public class IndexController {
         Map<String, String> params = new HashMap<>();
         params.put("address", searchStr);
         params.put("key", GOOGLE_API_KEY);
-        JSONObject locationJSON = RequestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
-        float[] latlong = new float[] {0, 0};
+        JSONObject locationJSON = requestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
+        String[] latlong = new String[] {"", ""};
         if (locationJSON != null)
             latlong = Utils.getLatLongFromJSON(locationJSON);
-        model.addAttribute("latitude", latlong[0]);
-        model.addAttribute("longitude", latlong[1]);
+            model.addAttribute("located",  true);
+            model.addAttribute("latitude",latlong[0]);
+            model.addAttribute("longitude",latlong[1]);
+            model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo(latlong[0],latlong[1]));
+            model.addAttribute("weather_forecast", queryWeather.WeatherForecastInfo(latlong[0],latlong[1]));
+            weather_code = queryWeather.CurrentWeatherInfo(latlong[0],latlong[1]).getId();
+            model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
+            model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
+            params = new HashMap<>();
+            params.put("latlng", latlong[0]+','+latlong[1]);
+            params.put("key", GOOGLE_API_KEY);
+            locationJSON = requestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
+            model.addAttribute("city", Utils.getCityFromJSON(locationJSON));
         return "index";
     }
 

@@ -1,28 +1,35 @@
 package com.csc510.smartweather.weatherInfo;
 
+import com.csc510.smartweather.utilities.RequestsHandler;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
 public class QueryWeather {
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    RequestsHandler requestsHandler;
 
     public CurrentWeather cw = new CurrentWeather();
 
     public WeatherForecast wf = new WeatherForecast();
 
     public CurrentWeather CurrentWeatherInfo(String lat,String lon){
-        String apiURL = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&units=imperial&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiURL,String.class);
-        //get all
-        String jsonsting = responseEntity.getBody();
-        JSONObject str = JSONObject.fromObject(jsonsting);
+        String apiURL = "http://api.openweathermap.org/data/2.5/weather";
+        Map<String, String> params = new HashMap<>();
+        params.put("lat", lat);
+        params.put("lon", lon);
+        params.put("units", "imperial");
+        params.put("appid", "b6737b31bfa691de6ae7dcffb8f9a49c");
+        JSONObject str = requestsHandler.getRequestJSON(apiURL, params);
         JSONObject str1 = JSONObject.fromObject(str.get("main"));
         JSONArray str2 = JSONArray.fromObject(str.get("weather"));
         JSONObject str3 = JSONObject.fromObject(str.get("wind"));
@@ -48,11 +55,13 @@ public class QueryWeather {
     }
 
     public WeatherForecast WeatherForecastInfo(String lat,String lon){
-        String apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&units=imperial&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiURL,String.class);
-        //get all
-        String jsonsting = responseEntity.getBody();
-        JSONObject str = JSONObject.fromObject(jsonsting);
+        String apiURL = "https://api.openweathermap.org/data/2.5/onecall";
+        Map<String, String> params = new HashMap<>();
+        params.put("lat", lat);
+        params.put("lon", lon);
+        params.put("units", "imperial");
+        params.put("appid", "b6737b31bfa691de6ae7dcffb8f9a49c");
+        JSONObject str = requestsHandler.getRequestJSON(apiURL, params);
         JSONArray str1 = JSONArray.fromObject(str.get("hourly"));
 
         for (int i = 0; i < 24; i++) {
