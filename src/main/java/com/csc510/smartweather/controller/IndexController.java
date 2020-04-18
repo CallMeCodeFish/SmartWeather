@@ -47,8 +47,6 @@ public class IndexController {
             request.getSession().setAttribute("located", true);
             request.getSession().setAttribute("latitude",latitude);
             request.getSession().setAttribute("longitude",longitude);
-//            System.out.println("纬度: " + latitude);
-//            System.out.println("经度: " + longitude);
         }
 
         //检查当前session是否已定位，向前端传入flag，以确定是否调用javascript定位代码
@@ -59,12 +57,20 @@ public class IndexController {
             model.addAttribute("located", false);
         }
 
-        request.getSession().setAttribute("weatherID",queryWeather.CurrentWeatherInfo().getId());
-        int weather_code = (Integer)request.getSession().getAttribute("weatherID");
-        model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
-        model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
-        model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo());
-        model.addAttribute("weather_forecast", queryWeather.WeatherForecastInfo());
+        String lat = (String)request.getSession().getAttribute("latitude");
+        String lon = (String)request.getSession().getAttribute("longitude");
+
+        if (lat != null && lon != null) {
+            model.addAttribute("latitude",lat);
+            model.addAttribute("longitude",lon);
+            model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo(lat,lon));
+            model.addAttribute("weather_forecast", queryWeather.WeatherForecastInfo(lat,lon));
+            request.getSession().setAttribute("weatherID",queryWeather.CurrentWeatherInfo(lat,lon).getId());
+            int weather_code = (Integer)request.getSession().getAttribute("weatherID");
+            model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
+            model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
+        }
+
         return "index";
     }
 

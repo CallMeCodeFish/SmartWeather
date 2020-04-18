@@ -10,6 +10,10 @@ public class CurrentWeather {
     private int id;
     private String mainInfo;
     private String icon;
+    private float wind_speed;
+    private int wind_deg;
+    private int clouds;
+    private String city;
 
     public float getTemp() {
         return temp;
@@ -75,6 +79,38 @@ public class CurrentWeather {
         this.mainInfo = mainInfo;
     }
 
+    public float getWind_speed() {
+        return wind_speed;
+    }
+
+    public void setWind_speed(float wind_speed) {
+        this.wind_speed = wind_speed;
+    }
+
+    public int getWind_deg() {
+        return wind_deg;
+    }
+
+    public void setWind_deg(int wind_deg) {
+        this.wind_deg = wind_deg;
+    }
+
+    public int getClouds() {
+        return clouds;
+    }
+
+    public void setClouds(int clouds) {
+        this.clouds = clouds;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     @Override
     public String toString() {
         return "CurrentWeather{" +
@@ -85,8 +121,12 @@ public class CurrentWeather {
                 ", pressure=" + pressure +
                 ", humidity=" + humidity +
                 ", id=" + id +
-                ", mainInfo='" + mainInfo + '\'' +
-                '}';
+                ", mainInfo='" + mainInfo +
+                ", wind_speed='" + wind_speed +
+                ", wind_deg='" + wind_deg +
+                ", clouds='" + clouds +
+                ", city='" + city +
+                '\'' + '}';
     }
 
     public void setIcon(String icon) {
