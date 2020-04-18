@@ -1,18 +1,37 @@
 package com.csc510.smartweather.utilities;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONArray;
 
 public class Utils {
-    public static float[] getLatLongFromJSON(JSONObject json) {
-        JSONArray results = (JSONArray) json.get("results");
+    public static String[] getLatLongFromJSON(JSONObject json) {
+        if (json == null)
+            return new String[] {"", ""};
+        JSONArray results = JSONArray.fromObject(json.get("results"));
         if (results == null)
-            return new float[] {0, 0};
-        JSONObject geometry = (JSONObject) ((JSONObject) results.get(0)).get("geometry");
-        JSONObject location = (JSONObject) geometry.get("location");
-        return new float[] {
-                Float.parseFloat(location.get("lat").toString()),
-                Float.parseFloat(location.get("lng").toString())
+            return new String[] {"", ""};
+        JSONObject geometry = JSONObject.fromObject(results.getJSONObject(0).get("geometry"));
+        JSONObject location = JSONObject.fromObject(geometry.get("location"));
+        return new String[] {
+                location.getString("lat"),
+                location.getString("lng")
         };
+    }
+    public static String getCityFromJSON(JSONObject json) {
+        if (json == null)
+            return "";
+        JSONArray results = JSONArray.fromObject(json.get("results"));
+        if (results == null)
+            return "";
+        JSONArray address_comps = JSONArray.fromObject(results.getJSONObject(0).get("address_components"));
+        for (int i = 0; i < address_comps.size(); i++) {
+            JSONObject comp = address_comps.getJSONObject(i);
+            JSONArray types = comp.getJSONArray("types");
+            for (int j = 0; j < types.size(); j++) {
+                if (types.getString(j).contains("locality"))
+                    return comp.getString("long_name");
+            }
+        }
+        return "";
     }
 }

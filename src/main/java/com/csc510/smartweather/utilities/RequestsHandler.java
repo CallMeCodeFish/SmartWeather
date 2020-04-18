@@ -1,36 +1,31 @@
 package com.csc510.smartweather.utilities;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
-import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
+@Controller
 public class RequestsHandler {
-    public static JSONObject getRequestJSON(String urlStr, Map<String, String> params) {
-        HttpURLConnection con = null;
+    @Autowired
+    RestTemplate restTemplate;
+
+    public JSONObject getRequestJSON(String urlStr, Map<String, String> params) {
+        String url = null;
+        url = urlStr + "?" + ParameterStringBuilder.getParamsString(params);
+        ResponseEntity<String> responseEntity = null;
         try {
-            URL url = new URL(urlStr + "?" + ParameterStringBuilder.getParamsString(params));
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json");
-            int status = con.getResponseCode();
-            Reader streamReader = null;
-            if (status > 299) {
-                streamReader = new InputStreamReader(con.getErrorStream());
-            } else {
-                streamReader = new InputStreamReader(con.getInputStream());
-            }
-            return (JSONObject) new JSONParser().parse(streamReader);
-        } catch (IOException | ParseException e) {
+            responseEntity = restTemplate.getForEntity(new URL(url).toString(), String.class);
+        } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;
-        } finally {
-            if (con != null)
-                con.disconnect();
         }
+        String jsonString = responseEntity.getBody();
+        return JSONObject.fromObject(jsonString);
     }
 }
