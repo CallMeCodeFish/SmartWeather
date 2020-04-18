@@ -4,7 +4,6 @@ import com.csc510.smartweather.service.WeatherCodesService;
 import com.csc510.smartweather.utilities.RequestsHandler;
 import com.csc510.smartweather.utilities.Utils;
 
-import com.sun.jndi.toolkit.url.Uri;
 import net.sf.json.JSONObject;
 import com.csc510.smartweather.weatherInfo.QueryWeather;
 import org.springframework.beans.factory.annotation.Autowired;
