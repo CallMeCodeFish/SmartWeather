@@ -17,14 +17,16 @@ public class QueryWeather {
 
     public WeatherForecast wf = new WeatherForecast();
 
-    public CurrentWeather CurrentWeatherInfo(){
-        String apiURL = "http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&units=imperial&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
+    public CurrentWeather CurrentWeatherInfo(String lat,String lon){
+        String apiURL = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&units=imperial&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiURL,String.class);
         //get all
         String jsonsting = responseEntity.getBody();
         JSONObject str = JSONObject.fromObject(jsonsting);
         JSONObject str1 = JSONObject.fromObject(str.get("main"));
         JSONArray str2 = JSONArray.fromObject(str.get("weather"));
+        JSONObject str3 = JSONObject.fromObject(str.get("wind"));
+        JSONObject str4 = JSONObject.fromObject(str.get("clouds"));
 
         cw.setFeel_like(Float.parseFloat(str1.getString("feels_like")));
         cw.setHumidity(str1.getInt("humidity"));
@@ -35,14 +37,18 @@ public class QueryWeather {
         cw.setId(str2.getJSONObject(0).getInt("id"));
         cw.setMainInfo(str2.getJSONObject(0).getString("main"));
         cw.setIcon(str2.getJSONObject(0).getString("icon"));
-        System.out.println(cw.getIcon());
-        //System.out.println(str);
+        cw.setWind_speed(Float.parseFloat(str3.getString("speed")));
+        cw.setWind_deg(str3.getInt("deg"));
+        cw.setClouds(str4.getInt("all"));
+        cw.setCity(str.getString("name"));
 
+//        System.out.println(cw.getIcon());
+//        System.out.println(str);
         return cw;
     }
 
-    public WeatherForecast WeatherForecastInfo(){
-        String apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat=60.99&lon=30.9&units=imperial&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
+    public WeatherForecast WeatherForecastInfo(String lat,String lon){
+        String apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&units=imperial&appid=b6737b31bfa691de6ae7dcffb8f9a49c";
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiURL,String.class);
         //get all
         String jsonsting = responseEntity.getBody();
@@ -59,8 +65,8 @@ public class QueryWeather {
             wf.setiWind_speed(Float.parseFloat(str1.getJSONObject(i+1).getString("wind_speed")), i);
         }
 
-        System.out.println(wf);
-        System.out.println(str);
+//        System.out.println(wf);
+//        System.out.println(str);
         return wf;
     }
 }
