@@ -71,3 +71,33 @@
 .sw-icon {
     color: #337ab7;
 }
+
+.sw-index-container {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+
+.sw-index-title {
+    color: #337ab7;
+    font-weight: bold;
+}
+
+.sw-index-font {
+    font-size: 13px;
+}
+
+.sw-body{
+    background-color: #efefef;
+    font-family: Helvetica, sans-serif;
+}
+
+.sw-index-sub-container {
+    margin-bottom: 20px;
+}
+
+.sw-index-hline {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}

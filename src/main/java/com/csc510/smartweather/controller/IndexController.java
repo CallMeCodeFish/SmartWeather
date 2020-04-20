@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
@@ -36,7 +37,7 @@ public class IndexController {
     private RequestsHandler requestsHandler;
 
     private int weather_code;
-    private final String GOOGLE_API_KEY = "REPLACE_THIS_WITH_KEY";
+    private final String GOOGLE_API_KEY = "KEY";
 
     @GetMapping("/")
     public String index(Model model,
@@ -80,7 +81,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("/search")
+    @PostMapping("/search")
     public String search(Model model, @RequestParam(value = "searchStr") String searchStr) {
         model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
