@@ -37,7 +37,7 @@ public class IndexController {
     private RequestsHandler requestsHandler;
 
     private int weather_code;
-    private final String GOOGLE_API_KEY = "AIzaSyBw4xLkNuzCVhfsJKXeQE8Nr5KTeZpx3nE";
+    private final String GOOGLE_API_KEY = "REPLACE_THIS_WITH_KEY";
 
     @GetMapping("/")
     public String index(Model model,
