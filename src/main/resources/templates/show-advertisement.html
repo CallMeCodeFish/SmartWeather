@@ -43,7 +43,7 @@
                                 th:text="${ad.seller.state}"></span>, <span th:text="${ad.seller.country}"></span>
                         </span>
                         <span class="sw-info-font col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                              th:if="${session.user.id} == ${ad.seller.userId}">
+                              th:if="${session.user} != null and ${session.user.id} == ${ad.seller.userId}">
                             <a th:href="@{'/seller/publish/' + ${ad.id}}">Edit</a>
                         </span>
                         <hr class="sw-show-page-hline">

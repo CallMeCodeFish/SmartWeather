@@ -1,6 +1,6 @@
-package com.csc510.smartweather.weatherInfo;
+package com.csc510.smartweather.dto;
 
-public class WeatherForecast {
+public class WeatherForecastDTO {
     private float [] temp = new float[24];
     private float [] feel_like = new float[24];
     private int [] pressure = new int[24];
@@ -17,7 +17,7 @@ public class WeatherForecast {
         this.temp = temp;
     }
 
-    public void setiTemp(float itemp, int i) {
+    public void setTemp(float itemp, int i) {
         this.temp[i] = itemp;
     }
 
@@ -29,7 +29,7 @@ public class WeatherForecast {
         this.feel_like = feel_like;
     }
 
-    public void setiFeel_like(float ifeel_like, int i) {
+    public void setFeel_like(float ifeel_like, int i) {
         this.feel_like[i] = ifeel_like;
     }
 
@@ -41,7 +41,7 @@ public class WeatherForecast {
         this.pressure = pressure;
     }
 
-    public void setiPressure(int ipressure, int i) {
+    public void setPressure(int ipressure, int i) {
         this.pressure[i] = ipressure;
     }
 
@@ -53,7 +53,7 @@ public class WeatherForecast {
         this.humidity = humidity;
     }
 
-    public void setiHumidity(int ihumidity, int i) {
+    public void setHumidity(int ihumidity, int i) {
         this.humidity[i] = ihumidity;
     }
 
@@ -65,7 +65,7 @@ public class WeatherForecast {
         this.dew_point = dew_point;
     }
 
-    public void setiDew_point(float idew_point, int i) {
+    public void setDew_point(float idew_point, int i) {
         this.dew_point[i] = idew_point;
     }
 
@@ -77,7 +77,7 @@ public class WeatherForecast {
         this.clouds = clouds;
     }
 
-    public void setiClouds(int iclouds, int i) {
+    public void setClouds(int iclouds, int i) {
         this.clouds[i] = iclouds;
     }
 
@@ -89,7 +89,7 @@ public class WeatherForecast {
         this.wind_speed = wind_speed;
     }
 
-    public void setiWind_speed(float iwind_speed, int i) {
+    public void setWind_speed(float iwind_speed, int i) {
         this.wind_speed[i] = iwind_speed;
     }
 

@@ -45,10 +45,7 @@ public class UserService {
         }
     }
 
-    public void selectByToken(User user) {
-        List<User> dbUserList = userMapper.selectByToken(user);
-        //可能抛异常
-        User dbUser = dbUserList.get(0);
-        BeanUtils.copyProperties(dbUser, user);
+    public List<User> selectByToken(User user) {
+        return userMapper.selectByToken(user);
     }
 }

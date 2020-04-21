@@ -99,14 +99,14 @@
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <!--Current location-->
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
-                        <h4 class="sw-index-title">Current Location</h4>
+                        <h4 class="sw-index-title">Location</h4>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-font">
                             City: <span th:text="${city}"></span> &emsp;
                             Latitude: <span th:text="${latitude}"></span>° &emsp;
                             Longitude: <span th:text="${longitude}"></span>°
                         </div>
+                        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     </div>
-                    <hr class="sw-index-hline">
 
                     <!--Current weather-->
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
@@ -150,8 +150,8 @@
                                 </div>
                             </div>
                         </div>
+                        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     </div>
-                    <hr class="sw-index-hline">
 
                     <!--Recommendation-->
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
@@ -161,8 +161,8 @@
                                 <span th:text="${recommendation.type}"></span>: <span th:text="${recommendation.text}"></span>
                             </div>
                         </div>
+                        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     </div>
-                    <hr class="sw-index-hline">
 
                     <!--24 hour forecast-->
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
@@ -193,7 +193,6 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="sw-index-hline">
                 </div>
 
                 <!--右边-->
@@ -201,7 +200,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
                         <h4 class="sw-index-title">Other location</h4>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-font">
-                            <form class="form-horizontal" action="/search">
+                            <form class="form-horizontal" action="/search" method="get">
                                 <div class="form-group">
                                     <input type="text" class="form-control" th:name="searchStr" placeholder="City name" autocomplete="off">
                                 </div>

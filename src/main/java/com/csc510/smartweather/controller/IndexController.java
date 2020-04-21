@@ -1,18 +1,18 @@
 package com.csc510.smartweather.controller;
+
 import com.csc510.smartweather.service.RecommendationsService;
 import com.csc510.smartweather.service.WeatherCodesService;
 import com.csc510.smartweather.utilities.RequestsHandler;
 import com.csc510.smartweather.utilities.Utils;
-
+import com.csc510.smartweather.dto.CurrentWeatherDTO;
+import com.csc510.smartweather.provider.OpenWeatherProvider;
 import net.sf.json.JSONObject;
-import com.csc510.smartweather.weatherInfo.QueryWeather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +32,12 @@ public class IndexController {
     @Autowired
     private WeatherCodesService weatherCodesService;
     @Autowired
-    private QueryWeather queryWeather;
+    private OpenWeatherProvider openWeatherProvider;
     @Autowired
     private RequestsHandler requestsHandler;
 
     private int weather_code;
-    private final String GOOGLE_API_KEY = "KEY";
+    private final String GOOGLE_API_KEY = "AIzaSyBw4xLkNuzCVhfsJKXeQE8Nr5KTeZpx3nE";
 
     @GetMapping("/")
     public String index(Model model,
@@ -65,9 +65,9 @@ public class IndexController {
         if (lat != null && lon != null) {
             model.addAttribute("latitude",lat);
             model.addAttribute("longitude",lon);
-            model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo(lat,lon));
-            model.addAttribute("weather_forecast", queryWeather.WeatherForecastInfo(lat,lon));
-            request.getSession().setAttribute("weatherID",queryWeather.CurrentWeatherInfo(lat,lon).getId());
+            model.addAttribute("currentweather", openWeatherProvider.CurrentWeatherInfo(lat,lon));
+            model.addAttribute("weather_forecast", openWeatherProvider.WeatherForecastInfo(lat,lon));
+            request.getSession().setAttribute("weatherID", openWeatherProvider.CurrentWeatherInfo(lat,lon).getId());
             weather_code = (Integer)request.getSession().getAttribute("weatherID");
             model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
             model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
@@ -75,13 +75,15 @@ public class IndexController {
             params.put("latlng", lat+','+lon);
             params.put("key", GOOGLE_API_KEY);
             JSONObject locationJSON = requestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
-            model.addAttribute("city", Utils.getCityFromJSON(locationJSON));
+            String city = Utils.getCityFromJSON(locationJSON);
+            model.addAttribute("city", city);
+            request.getSession().setAttribute("city", city);
         }
 
         return "index";
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     public String search(Model model, @RequestParam(value = "searchStr") String searchStr) {
         model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
         model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
@@ -90,21 +92,19 @@ public class IndexController {
         params.put("key", GOOGLE_API_KEY);
         JSONObject locationJSON = requestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
         String[] latlong = new String[] {"", ""};
-        if (locationJSON != null)
+        if (locationJSON != null) {
             latlong = Utils.getLatLongFromJSON(locationJSON);
             model.addAttribute("located",  true);
             model.addAttribute("latitude",latlong[0]);
             model.addAttribute("longitude",latlong[1]);
-            model.addAttribute("currentweather", queryWeather.CurrentWeatherInfo(latlong[0],latlong[1]));
-            model.addAttribute("weather_forecast", queryWeather.WeatherForecastInfo(latlong[0],latlong[1]));
-            weather_code = queryWeather.CurrentWeatherInfo(latlong[0],latlong[1]).getId();
+            CurrentWeatherDTO cw = openWeatherProvider.CurrentWeatherInfo(latlong[0], latlong[1]);
+            model.addAttribute("city", cw.getCity());
+            model.addAttribute("currentweather", cw);
+            model.addAttribute("weather_forecast", openWeatherProvider.WeatherForecastInfo(latlong[0],latlong[1]));
+            weather_code = cw.getId();
             model.addAttribute("weather_codes", weatherCodesService.getWeatherCode(weather_code));
             model.addAttribute("recommendations", recommendationsService.getRecommendations(weather_code));
-            params = new HashMap<>();
-            params.put("latlng", latlong[0]+','+latlong[1]);
-            params.put("key", GOOGLE_API_KEY);
-            locationJSON = requestsHandler.getRequestJSON("https://maps.googleapis.com/maps/api/geocode/json", params);
-            model.addAttribute("city", Utils.getCityFromJSON(locationJSON));
+        }
         return "index";
     }
 

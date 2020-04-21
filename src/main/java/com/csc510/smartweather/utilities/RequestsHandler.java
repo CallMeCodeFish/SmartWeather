@@ -3,21 +3,20 @@ package com.csc510.smartweather.utilities;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
-@Controller
+@Component
 public class RequestsHandler {
     @Autowired
     RestTemplate restTemplate;
 
     public JSONObject getRequestJSON(String urlStr, Map<String, String> params) {
-        String url = null;
-        url = urlStr + "?" + ParameterStringBuilder.getParamsString(params);
+        String url = urlStr + "?" + ParameterStringBuilder.getParamsString(params);
         ResponseEntity<String> responseEntity = null;
         try {
             responseEntity = restTemplate.getForEntity(new URL(url).toString(), String.class);
