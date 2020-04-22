@@ -183,6 +183,8 @@ public class SellerController {
         Seller seller = sellerService.selectByUserId(user.getId());
         List<Advertisement> dbAds = advertisementMapper.selectBySellerId(seller.getId());
         model.addAttribute("ads", dbAds);
+        model.addAttribute("title", "My advertisements");
+        model.addAttribute("type", 2);
         return "advertisements";
     }
 

@@ -8,9 +8,10 @@
     <script src="/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>SmartWeather</title>
+
 </head>
 
-<body style="background-color: #efefef">
+<body class="sw-body">
 
 <!--导航栏-->
 <nav th:replace="~{navigation :: nav-bar}"></nav>
@@ -18,9 +19,35 @@
 <!--没有定位信息，显示welcome并通过JavaScript获取位置信息重新发送请求-->
 <div th:if="${located} == false">
     <!--页面主要内容-->
-    <div class="container-fluid sw-container-main">
+    <div class="container-fluid">
         <div class="row">
-            Welcome to the SmartWeather application!
+            <!--页面左边占位-->
+            <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1"></div>
+
+            <!--内容-->
+            <div class="col-lg-8 col-md-10 col-sm-10 col-xs-10 sw-container-main">
+                <!--列表部分-->
+                <div class="row">
+                    <!--占位-->
+                    <div class="col-lg-1 col-md-1"></div>
+
+                    <!--列表-->
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-ad-title">
+                            <div class="jumbotron">
+                                <h3 class="sw-btn-submit">Welcome to SmartWeather!</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--占位-->
+                    <div class="col-lg-1 col-md-1"></div>
+                </div>
+            </div>
+
+            <!--页面右边占位-->
+            <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1"></div>
         </div>
     </div>
 
@@ -47,10 +74,9 @@
                 },
                 success: function (response) {
                     console.log("ok");
-                },
-                dataType: "json"
+                    window.location.replace("/");
+                }
             });
-            window.location.replace("/");
         }
 
         function showError(error) {
@@ -62,300 +88,135 @@
 
 <!--有定位信息，显示定位和天气信息-->
 <div th:if="${located} == true">
-    <!--页面主要内容-->
-    <div class="container-fluid sw-container-main">
+    <div class="container-fluid">
         <div class="row">
-            <!--左边主要内容-->
-            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a style="font-weight:bold;font-size:18px;">Current Location</a>
-                    <p>
-                        Latitude:<span th:text="${latitude}"></span>° &emsp;
-                        Longitude:<span th:text="${longitude}"></span>° &emsp;
-                        City:<span th:text="${city}"></span>
-                    </p>
-                </div>
-                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!--占位-->
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
 
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a style="font-weight:bold;font-size:18px;">Current Weather</a>
-                    <p>
-                        <img th:src="@{'http://openweathermap.org/img/w/' + ${currentweather.icon} + '.png'}">
-                        Today:<span th:text="${currentweather.mainInfo}"></span> <br/>
-                        Temperature:<span th:text="${currentweather.temp}"></span>°F&emsp;
-                        Lowest Temperature:<span th:text="${currentweather.temp_min}"></span>°F&emsp;
-                        Highest Temperature:<span th:text="${currentweather.temp_max}"></span>°F&emsp;
-                        Feels Like:<span th:text="${currentweather.feel_like}"></span>°F&emsp; <br/>
-                        Humidity:<span th:text="${currentweather.humidity}"></span>%&emsp;
-                        Pressure:<span th:text="${currentweather.pressure}"></span>hPa&emsp;
-                        Wind Speed:<span th:text="${currentweather.wind_speed}"></span>meter/sec&emsp;
-                        Wind Direction:<span th:text="${currentweather.wind_deg}"></span>°&emsp;
-                        Humidity:<span th:text="${currentweather.clouds}"></span>%&emsp;
-                    </p>
-                </div>
-                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!--页面主要内容-->
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 sw-container-main sw-index-container">
+                <!--左边-->
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <!--Current location-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
+                        <h4 class="sw-index-title">Location</h4>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-font">
+                            City: <span th:text="${city}"></span> &emsp;
+                            Latitude: <span th:text="${latitude}"></span>° &emsp;
+                            Longitude: <span th:text="${longitude}"></span>°
+                        </div>
+                        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    </div>
 
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a style="font-weight:bold;font-size:18px;">Recommendation based on current weather</a>
-                    <p>
-                        <table style="width: 100%" border="1">
-                            <thead>
-                            <tr>
-                                <th style="width: 20%"> Weather </th>
-                                <th style="width: 15%"> Type </th>
-                                <th style="width: 65%"> Recommendation </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td th:text="${weather_codes.text}" th:rowspan="${recommendations.size()+1}"></td>
-                            </tr>
-                            <tr th:each="recommendation : ${recommendations}">
-                                <td th:text="${recommendation.type} "></td>
-                                <td th:text="${recommendation.text} "></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </p>
+                    <!--Current weather-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
+                        <h4 class="sw-index-title">Current Weather</h4>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-font">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <img th:src="@{'http://openweathermap.org/img/w/' + ${currentweather.icon} + '.png'}">
+                                Temperature: <span th:text="${currentweather.temp}"></span> °F, &emsp;<span th:text="${currentweather.mainInfo}"></span>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    Feels Like: <span th:text="${currentweather.feel_like}"></span> °F
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    Lowest: <span th:text="${currentweather.temp_min}"></span> °F
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    Highest: <span th:text="${currentweather.temp_max}"></span> °F
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    Humidity: <span th:text="${currentweather.humidity}"></span> %
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    Pressure: <span th:text="${currentweather.pressure}"></span> hPa
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    Cloudiness: <span th:text="${currentweather.clouds}"></span> %
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    Wind Speed: <span th:text="${currentweather.wind_speed}"></span> meter/sec
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    Wind Direction: <span th:text="${currentweather.wind_deg}"></span> °
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    </div>
+
+                    <!--Recommendation-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
+                        <h4 class="sw-index-title">Recommendation for <span th:text="${weather_codes.text}"></span> weather</h4>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-font">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="recommendation : ${recommendations}">
+                                <span th:text="${recommendation.type}"></span>: <span th:text="${recommendation.text}"></span>
+                            </div>
+                        </div>
+                        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    </div>
+
+                    <!--24 hour forecast-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
+                        <h4 class="sw-index-title">24-hour weather forecast</h4>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-font">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Hour</th>
+                                        <th>Temperature (°F)</th>
+                                        <th>Humidity (%)</th>
+                                        <th>Cloudiness (%)</th>
+                                        <th>Wind speed (m/sec)</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="i : ${#numbers.sequence(0, 23)}">
+                                        <td><span th:text="${i + 1}"></span>h</td>
+                                        <td th:text="${weather_forecast.temp[i]}"></td>
+                                        <td th:text="${weather_forecast.humidity[i]}"></td>
+                                        <td th:text="${weather_forecast.clouds[i]}"></td>
+                                        <td th:text="${weather_forecast.wind_speed[i]}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a style="font-weight:bold;font-size:18px;">24h Weather Forecast</a>
-                    <table style="width: 100%" border="1">
-                        <thead>
-                        <tr>
-                            <th style="width: 4%"> \ </th>
-                            <th style="width: 4%"> 1h </th>
-                            <th style="width: 4%"> 2h </th>
-                            <th style="width: 4%"> 3h </th>
-                            <th style="width: 4%"> 4h </th>
-                            <th style="width: 4%"> 5h </th>
-                            <th style="width: 4%"> 6h </th>
-                            <th style="width: 4%"> 7h </th>
-                            <th style="width: 4%"> 8h </th>
-                            <th style="width: 4%"> 9h </th>
-                            <th style="width: 4%"> 10h </th>
-                            <th style="width: 4%"> 11h </th>
-                            <th style="width: 4%"> 12h </th>
-                            <th style="width: 4%"> 13h </th>
-                            <th style="width: 4%"> 14h </th>
-                            <th style="width: 4%"> 15h </th>
-                            <th style="width: 4%"> 16h </th>
-                            <th style="width: 4%"> 17h </th>
-                            <th style="width: 4%"> 18h </th>
-                            <th style="width: 4%"> 19h </th>
-                            <th style="width: 4%"> 20h </th>
-                            <th style="width: 4%"> 21h </th>
-                            <th style="width: 4%"> 22h</th>
-                            <th style="width: 4%"> 23h </th>
-                            <th style="width: 4%"> 24h </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th> Temperature(°F) </th>
-                            <td th:text="${weather_forecast.getTemp()[0]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[1]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[2]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[3]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[4]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[5]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[6]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[7]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[8]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[9]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[10]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[11]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[12]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[13]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[14]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[15]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[16]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[17]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[18]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[19]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[20]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[21]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[22]}"></td>
-                            <td th:text="${weather_forecast.getTemp()[23]}"></td>
-                        </tr>
-                        <tr>
-                            <th> Feels Like(°F) </th>
-                            <td th:text="${weather_forecast.getFeel_like()[0]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[1]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[2]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[3]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[4]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[5]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[6]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[7]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[8]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[9]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[10]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[11]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[12]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[13]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[14]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[15]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[16]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[17]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[18]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[19]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[20]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[21]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[22]}"></td>
-                            <td th:text="${weather_forecast.getFeel_like()[23]}"></td>
-                        </tr>
-                        <tr>
-                            <th> Humidity(%) </th>
-                            <td th:text="${weather_forecast.getHumidity()[0]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[1]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[2]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[3]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[4]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[5]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[6]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[7]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[8]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[9]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[10]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[11]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[12]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[13]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[14]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[15]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[16]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[17]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[18]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[19]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[20]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[21]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[22]}"></td>
-                            <td th:text="${weather_forecast.getHumidity()[23]}"></td>
-                        </tr>
-                        <tr>
-                            <th> Pressure(hPa) </th>
-                            <td th:text="${weather_forecast.getPressure()[0]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[1]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[2]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[3]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[4]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[5]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[6]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[7]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[8]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[9]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[10]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[11]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[12]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[13]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[14]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[15]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[16]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[17]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[18]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[19]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[20]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[21]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[22]}"></td>
-                            <td th:text="${weather_forecast.getPressure()[23]}"></td>
-                        </tr>
-                        <tr>
-                            <th> Dew Point(°F) </th>
-                            <td th:text="${weather_forecast.getDew_point()[0]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[1]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[2]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[3]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[4]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[5]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[6]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[7]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[8]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[9]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[10]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[11]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[12]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[13]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[14]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[15]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[16]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[17]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[18]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[19]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[20]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[21]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[22]}"></td>
-                            <td th:text="${weather_forecast.getDew_point()[23]}"></td>
-                        </tr>
-                        <tr>
-                            <th> Cloudiness(%) </th>
-                            <td th:text="${weather_forecast.getClouds()[0]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[1]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[2]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[3]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[4]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[5]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[6]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[7]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[8]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[9]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[10]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[11]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[12]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[13]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[14]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[15]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[16]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[17]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[18]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[19]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[20]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[21]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[22]}"></td>
-                            <td th:text="${weather_forecast.getClouds()[23]}"></td>
-                        </tr>
-                        <tr>
-                            <th> Wind Speed(meter/sec) </th>
-                            <td th:text="${weather_forecast.getWind_speed()[0]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[1]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[2]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[3]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[4]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[5]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[6]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[7]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[8]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[9]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[10]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[11]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[12]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[13]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[14]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[15]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[16]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[17]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[18]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[19]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[20]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[21]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[22]}"></td>
-                            <td th:text="${weather_forecast.getWind_speed()[23]}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+                <!--右边-->
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-sub-container">
+                        <h4 class="sw-index-title">Other location</h4>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sw-index-font">
+                            <form class="form-horizontal" action="/search" method="get">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" th:name="searchStr" placeholder="City name" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!--右边主要内容-->
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a style="font-weight:bold;font-size:18px;">Other Location</a>
-                    <form th:action="@{/search}">
-                        <input type="text" th:name="searchStr" placeholder="Search for place">
-                        <input type="submit"/>
-                    </form>
-                </div>
-            </div>
+
+
+            <!--占位-->
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
         </div>
     </div>
 </div>

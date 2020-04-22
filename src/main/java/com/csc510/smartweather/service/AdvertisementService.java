@@ -8,7 +8,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Heng Yu
@@ -47,5 +50,24 @@ public class AdvertisementService {
         BeanUtils.copyProperties(dbAd, adDTO);
         adDTO.setSeller(dbSeller);
         return adDTO;
+    }
+
+    public List<AdvertisementDTO> selectByCity(String city) {
+        List<AdvertisementDTO> res = new ArrayList<>();
+        List<Advertisement> dbAdsList = advertisementMapper.selectByCity(city);
+        Map<Integer, Seller> sellers = new HashMap<>();
+        for (Advertisement ad : dbAdsList) {
+            Integer sellerId = ad.getSellerId();
+            if (!sellers.containsKey(sellerId)) {
+                Seller dbSeller = sellerService.selectById(sellerId);
+                sellers.put(sellerId, dbSeller);
+            }
+            Seller dbSeller = sellers.get(sellerId);
+            AdvertisementDTO adDTO = new AdvertisementDTO();
+            BeanUtils.copyProperties(ad, adDTO);
+            adDTO.setSeller(dbSeller);
+            res.add(adDTO);
+        }
+        return res;
     }
 }

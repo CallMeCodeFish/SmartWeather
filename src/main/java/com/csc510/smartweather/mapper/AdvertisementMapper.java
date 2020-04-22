@@ -1,5 +1,6 @@
 package com.csc510.smartweather.mapper;
 
+import com.csc510.smartweather.dto.AdvertisementDTO;
 import com.csc510.smartweather.model.Advertisement;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
@@ -26,4 +27,7 @@ public interface AdvertisementMapper {
 
     @Update("update advertisement set title=#{title}, description=#{description}, seller_city=#{sellerCity}, updated_at=#{updatedAt} where id=#{id}")
     void update(Advertisement ad);
+
+    @Select("select * from advertisement where seller_city=#{city} order by created_at desc")
+    List<Advertisement> selectByCity(@Param("city") String city);
 }

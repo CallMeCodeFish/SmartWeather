@@ -18,7 +18,9 @@ public class CustomizeExceptionHandler {
     ModelAndView handle(Throwable e, Model model) {
         if (e instanceof CustomizeException) {
             model.addAttribute("message", e.getMessage());
+            e.printStackTrace();
         } else {
+            e.printStackTrace();
             model.addAttribute("message", CustomizeExceptionEnum.SYSTEM_ERROR.getMessage());
         }
         return new ModelAndView("error");
